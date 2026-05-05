@@ -582,6 +582,8 @@ class MainActivity : ComponentActivity() {
                                         currentWeekIndex = currentWeekIndex,
                                         totalScheduleDisplayEnabled = prefs.totalScheduleDisplayEnabled,
                                         temporaryScheduleOverrides = prefs.temporaryScheduleOverrides,
+                                        developerModeEnabled = prefs.developerModeEnabled,
+                                        debugForcedDateTime = prefs.debugForcedDateTime,
                                         onPickThemeMode = { showThemeSheet = true },
                                         onPickThemeAccent = { showThemeAccentDialog = true },
                                         onPickTermStartDate = { showDatePicker = true },
@@ -593,12 +595,6 @@ class MainActivity : ComponentActivity() {
                                         onRemoveTemporaryScheduleOverride = prefsViewModel::removeTemporaryScheduleOverride,
                                         onClearTemporaryScheduleOverrides = prefsViewModel::clearTemporaryScheduleOverrides,
                                         onOpenWidgetPicker = { showWidgetPicker = true },
-                                        modifier = Modifier.fillMaxSize(),
-                                    )
-
-                                    AppScreen.About -> AboutScreen(
-                                        developerModeEnabled = prefs.developerModeEnabled,
-                                        debugForcedDateTime = prefs.debugForcedDateTime,
                                         onSetDeveloperMode = prefsViewModel::setDeveloperModeEnabled,
                                         onSetDebugForcedDateTime = prefsViewModel::setDebugForcedDateTime,
                                         onExportScheduleMetadata = {
@@ -637,12 +633,18 @@ class MainActivity : ComponentActivity() {
                                                 } else {
                                                     android.widget.Toast.makeText(
                                                         this@MainActivity,
-                                                        "导出课表元数据失败，请稍后重试",
+                                                        "导出失败，请稍后重试",
                                                         android.widget.Toast.LENGTH_SHORT,
                                                     ).show()
                                                 }
                                             }
                                         },
+                                        modifier = Modifier.fillMaxSize(),
+                                    )
+
+                                    AppScreen.About -> AboutScreen(
+                                        developerModeEnabled = prefs.developerModeEnabled,
+                                        onSetDeveloperMode = prefsViewModel::setDeveloperModeEnabled,
                                         modifier = Modifier.fillMaxSize(),
                                     )
                                 }
